@@ -1,0 +1,329 @@
+::[Bat To Exe Converter]
+::
+::YAwzoRdxOk+EWAjk
+::fBw5plQjdCyDJGyX8VAjFCxdQhe+GG6pDaET+NTM5uSDrVoO0DrM/FchXV1mca5D1mjtdoQixXVcjPRdXkNIZi36P1dk+D8RiWGEJN6VsADvBEaM8gU5GGoU
+::YAwzuBVtJxjWCl3EqQJgSA==
+::ZR4luwNxJguZRRnk
+::Yhs/ulQjdF+5
+::cxAkpRVqdFKZSjk=
+::cBs/ulQjdF+5
+::ZR41oxFsdFKZSTk=
+::eBoioBt6dFKZSDk=
+::cRo6pxp7LAbNWATEpCI=
+::egkzugNsPRvcWATEpCI=
+::dAsiuh18IRvcCxnZtBJQ
+::cRYluBh/LU+EWAnk
+::YxY4rhs+aU+IeA==
+::cxY6rQJ7JhzQF1fEqQJhZksaHErQXA==
+::ZQ05rAF9IBncCkqN+0xwdVsFAlTMbCXoZg==
+::ZQ05rAF9IAHYFVzEqQIHIRVQQxORuLNJgm3mbwETaTVnJJnG0TX6/WoMug==
+::eg0/rx1wNQPfEVWB+kM9LVsJDDOLMm+1EaaYMBt/NxAAS6WbiwK5rFReDXELxTdz
+::fBEirQZwNQPfEVWB+kM9LVsJDDOLMm+1EaaYMBt/NxAAS6WbiwK5rFReDXELxTdz
+::cRolqwZ3JBvQF1fEqQIHIRVQQxORuLNJgm3mbwETaTVnJJnG0TX6/WoMug==
+::dhA7uBVwLU+EWDk=
+::YQ03rBFzNR3SWATElA==
+::dhAmsQZ3MwfNWATE1lu/9OFjRQqRXA==
+::ZQ0/vhVqMQ3MEVWAtB9wSA==
+::Zg8zqx1/OA3MEVWAtB9wSA==
+::dhA7pRFwIByZRRnk
+::Zh4grVQjdCyDJGyX8VAjFCxdQhe+GG6pDaET+NTM5uSDrVoO0DrM/FchXV1mca5D1lO3O8ZlziwO0YUJFB44
+::YB416Ek+Zm8=
+::
+::
+::978f952a14a936cc963da21a135fa983
+@echo off
+title Windows全专业版激活
+mode con cols=100 lines=35
+color 1f
+
+rem 获取管理员权限
+:: BatchGotAdmin  
+:-------------------------------------  
+rem  --> Check for permissions  
+>nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
+rem --> If error flag set, we do not have admin.  
+if '%errorlevel%' NEQ '0' (  
+    echo 获取管理员权限中,如果UAC弹窗,请选择允许...
+    goto UACPrompt  
+) else ( goto gotAdmin )   
+:UACPrompt  
+    echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"  
+    echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"   
+    "%temp%\getadmin.vbs"
+    exit /B  
+:gotAdmin  
+    if exist "%temp%\getadmin.vbs" ( del "%temp%\getadmin.vbs" )  
+    pushd "%CD%"  
+    CD /D "%~dp0"
+
+echo 正在验证服务器连接状态...
+ping kms.artgeek.cn -n 2 | findstr /i "TTL" >NUL 2>NUL 
+if %errorlevel%==0 goto kaishi  
+if %errorlevel%==1 goto false
+
+rem 激活部分
+:kaishi
+cls
+
+echo\
+echo                         请输入数字选择(如程序运行不正常请以管理员模式运行):
+echo                               更多版本激活请访问 http://kms.artgeek.cn
+echo\
+echo           ==============================================================================
+echo          丨                                                                            丨
+echo          丨                         1：激活 Windows10 专业版                           丨
+echo          丨                                                                            丨
+echo           ==============================================================================
+echo           ==============================================================================
+echo          丨                                                                            丨
+echo          丨                         2：激活 Windows8.1 专业版                          丨
+echo          丨                                                                            丨
+echo           ==============================================================================
+echo           ==============================================================================
+echo          丨                                                                            丨
+echo          丨                         3：激活 Windows8 专业版                            丨
+echo          丨                                                                            丨
+echo           ==============================================================================
+echo           ==============================================================================
+echo          丨                                                                            丨
+echo          丨                         4：激活 Windows7 专业版                            丨
+echo          丨                                                                            丨
+echo           ==============================================================================
+echo           ==============================================================================
+echo          丨                                                                            丨
+echo          丨                         5：查看 Windows 激活状态                           丨
+echo          丨                                                                            丨
+echo           ==============================================================================
+echo           ==============================================================================
+echo          丨                                                                            丨
+echo          丨                         6：激活失败疑难解答                                丨
+echo          丨                                                                 --Wins     丨
+echo           ==============================================================================
+set /P var=":"
+if "%var%"=="1" goto 10
+if "%var%"=="2" goto 8.1
+if "%var%"=="3" goto 8
+if "%var%"=="4" goto 7
+if "%var%"=="5" goto look
+if "%var%"=="6" goto helplist
+echo 输入错误请重新输入
+ping /n 2 127.1>nul
+goto -------------------------------------  
+
+:10
+cls
+echo\
+echo           ******************************************************************************
+echo           *                                                                            *
+echo           *     接下来将自动激活,弹窗三次,请点击每一步弹窗的确定,激活过程需要联网      *
+echo           *                                                                            *
+echo           ******************************************************************************
+echo\
+echo                                         第一步 安装产品密钥...
+echo\
+slmgr -ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
+echo\
+echo                                     第二步 设置密钥管理服务计算机...
+echo\
+slmgr -skms kms.artgeek.cn
+echo\
+echo                                         第三步 自动联网激活...
+echo\
+slmgr -ato
+goto exit
+
+:8.1
+cls
+echo\
+echo           ******************************************************************************
+echo           *                                                                            *
+echo           *     接下来将自动激活,弹窗三次,请点击每一步弹窗的确定,激活过程需要联网      *
+echo           *                                                                            *
+echo           ******************************************************************************
+echo\
+echo                                         第一步 安装产品密钥...
+echo\
+slmgr -ipk GCRJD-8NW9H-F2CDX-CCM8D-9D6T9
+echo\
+echo                                     第二步 设置密钥管理服务计算机...
+echo\
+slmgr -skms kms.artgeek.cn
+echo\
+echo                                         第三步 自动联网激活...
+echo\
+slmgr -ato
+goto exit
+
+
+:8
+cls
+echo\
+echo           ******************************************************************************
+echo           *                                                                            *
+echo           *     接下来将自动激活,弹窗三次,请点击每一步弹窗的确定,激活过程需要联网      *
+echo           *                                                                            *
+echo           ******************************************************************************
+echo\
+echo                                         第一步 安装产品密钥
+echo\
+slmgr -ipk NG4HW-VH26C-733KW-K6F98-J8CK4
+echo\
+echo                                     第二步 设置密钥管理服务计算机...
+echo\
+slmgr -skms kms.artgeek.cn
+echo\
+echo                                         第三步 自动联网激活...
+echo\
+slmgr -ato
+goto exit
+
+:7
+cls
+echo\
+echo           ******************************************************************************
+echo           *                                                                            *
+echo           *     接下来将自动激活,弹窗三次,请点击每一步弹窗的确定,激活过程需要联网      *
+echo           *                                                                            *
+echo           ******************************************************************************
+echo\
+echo                                         第一步 安装产品密钥...
+echo\
+slmgr -ipk FJ82H-XT6CR-J8D7P-XQJJ2-GPDD4
+echo\
+echo                                     第二步 设置密钥管理服务计算机...
+echo\
+slmgr -skms kms.artgeek.cn
+echo\
+echo                                         第三步 自动联网激活...
+echo\
+slmgr -ato
+goto exit
+
+
+:look
+cls
+echo\
+echo                                          请注意查看弹窗内容
+slmgr.vbs -dlv
+goto kaishi
+
+:helplist
+cls
+echo.
+echo 以下为各类常见错误，请根据序号选择查看解决方案
+echo.
+echo 1.提示运行在非核心版本Windows上(慎重选择)
+echo 2.提示slmgr不是内部或外部命令也不是可运行的程序
+echo 3.傻子用户看这里
+echo.
+echo.
+echo 按9返回主菜单
+set /P var=":"
+if "%var%"=="1" goto help1 
+if "%var%"=="2" goto help2
+if "%var%"=="3" goto qiaolima 
+if "%var%"=="9" goto kaishi 
+echo.
+echo.
+echo 输入错误请重新输入
+ping /n 2 127.1>nul
+goto helplist
+
+:help1
+cls
+echo.
+echo 如提示运行在非核心版本Windows上：
+echo.
+echo 方法一：
+echo 按“Windows +X”组合键，选择“运行”；
+echo 输入“slui 3”（不包括引号，可直接复制），然后按回车；
+echo 输入产品密钥，手动激活系统。
+echo.
+echo 方法二(按7执行此方案)：
+echo 按“Windows +X”组合键，选择“命令提示符（管理员）”；
+echo 输入  "slmgr /upk"（不包括引号）按回车，卸载密钥。
+echo       "slmgr /cpky"（不包括引号）按回车，清除注册表中密钥信息。
+echo.
+echo 如果仍未激活成功，请访问https://msdn.itellyou.cn/下载官方镜像重装系统。
+echo.
+echo.
+echo 敲击任意键，三秒后开始执行秘钥清除修复程序...
+pause>nul
+@ping -n 3 127.1 >nul 2>nul
+goto slmgrclean
+
+:help2
+cls
+echo.
+echo 正在打开“系统属性”...如未弹出请按5并回车。
+echo.
+echo 在“高级-系统(环境)变量”里找到“Path”，然后选中它并点击“编辑”，查看下里面是否有以下项目：
+echo 1. %%SystemRoot%%\system32;
+echo 2. %%SystemRoot%%;
+echo 3. %%SystemRoot%%\System32\Wbem;
+echo 如果没有请直接添加进去，每个路径后面都需要一个英文的分号来分割，切记注意。
+echo 添加完毕后，确定，关闭之前窗口，重新打开程序再次尝试。
+echo.
+echo.
+echo -----------------------------------------------------------------------------------------
+echo 按数字键1-3复制对应内容，直接粘贴即可。
+echo 按9返回主菜单
+echo 按5重新打开“系统属性”
+echo.
+set /P var=":"
+if "%var%"=="9" goto kaishi
+if "%var%"=="5" rundll32 shell32,Control_RunDLL sysdm.cpl & goto fuzhisuccess 
+if "%var%"=="1" mshta vbscript:clipboarddata.setdata("text","%%SystemRoot%%\system32;")(close) & goto fuzhisuccess 
+if "%var%"=="2" mshta vbscript:clipboarddata.setdata("text","%%SystemRoot%%;")(close) & goto fuzhisuccess 
+if "%var%"=="3" mshta vbscript:clipboarddata.setdata("text","%%SystemRoot%%\System32\Wbem;")(close) & goto fuzhisuccess 
+echo.
+echo.
+echo 输入错误请重新输入
+ping /n 2 127.1>nul
+goto helplist
+
+:fuzhisuccess
+echo 运行命令成功，五秒后继续程序执行...
+ping /n 3 127.1>nul
+goto help2
+
+:false
+echo 服务器连接失败，可能是网络问题或者服务器不处于开放验证时间。
+goto exit
+
+:slmgrclean
+cls
+echo.
+echo.
+echo 正在卸载旧秘钥...
+slmgr /upk
+echo.
+echo 正在清除注册表秘钥信息...
+slmgr /cpky
+echo.
+echo 清除完毕，请重新尝试激活。
+ping /n 3 127.1>nul
+goto helplist
+
+:qiaolima
+start https://www.baidu.com/s?wd=%%E6%%88%%91%%E6%%98%%AF%%E5%%82%%BB%%E5%%AD%%90%%E6%%80%%8E%%E4%%B9%%88%%E5%%8A%%9E&rsv_spt=1&rsv_iqid=0xbca5b94500003ec1&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&rqlang=cn&tn=baiduhome_pg&rsv_enter=1&oq=%%25E5%%2582%%25BB%%25E5%%25AD%%2590%%25E6%%2580%%258E%%25E4%%25B9%%2588%%25E5%%258A%%259E&rsv_t=4c85u8j5%%2FJBrOaeaF2gOrOJNi1VjqzoNlaZ05aaDqLN24MRdqgvb70UcYWaRCkHDR4FP&rsv_pq=b618ba420002c8e4&inputT=959&rsv_sug3=374&rsv_sug1=216&rsv_sug7=100&rsv_sug2=0&rsv_sug4=1533 
+start %windir%\\system32\\rundll32.exe user32.dll,LockWorkStation
+cls
+exit
+
+:exit
+echo\
+echo\
+echo\
+echo\
+echo\
+echo\
+echo           *******************************指令已经完成***********************************
+echo           *                      苟利国家生死以 岂因福祸避趋之                         *
+echo           *                                                                            *
+echo           *                   按任意键退出,享受正版windows带来的快感吧                 *
+echo           *           由于组织激活机制，180天后需重新运行程序连接服务器激活哦          *
+echo           *                                                     http://kms.artgeek.cn/ *
+echo           ************************   By:Wins   QQ：616421453   *************************
+pause>nul 
+start http://kms.artgeek.cn
